@@ -1,12 +1,14 @@
-version: '3'
+version: '3.8'
 
 services:
   mlfrontend:
-    image: mlfrontend
+    build: ./ml-frontend
     ports:
       - 3000:3000
+    depends_on:
+      - mlbackend
   mlbackend:
-    image: mlbackend
+    build: ./ml-backend
     ports:
       - 5000:5000
     volumes:
@@ -14,7 +16,7 @@ services:
     depends_on: 
       - mltraining
   mltraining:
-    image: mltraining
+    build: ./ml-training
     volumes:
       - ./imgs:/src/imgs
       - ./model:/src/model
